@@ -120,6 +120,11 @@ func (manager *Manager) AddConfig(providerName string, opts map[string]string) e
 		cfg.RedirectURI = redirectURI
 	}
 
+	if baseURL, exist := opts["base_url"]; exist {
+		cfg.AuthURL = fmt.Sprintf(p.AuthURL, baseURL)
+		cfg.TokenURL = fmt.Sprintf(p.TokenURL, baseURL)
+	}
+
 	manager.configs[providerName] = cfg
 	return nil
 }
